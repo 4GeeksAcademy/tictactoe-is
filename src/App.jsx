@@ -3,10 +3,10 @@ import StartScreen from './components/StartScreen';
 import GameBoard from './components/GameBoard';
 
 function App() {
-  const [gameStarted, setGameStarted] = useState(false);
   const [player1, setPlayer1] = useState('');
   const [player2, setPlayer2] = useState('');
-  const [playerSymbol, setPlayerSymbol] = useState('X');
+  const [playerSymbol, setPlayerSymbol] = useState('');
+  const [gameStarted, setGameStarted] = useState(false);
 
   const handleStartGame = (p1, p2, symbol) => {
     setPlayer1(p1);
@@ -15,20 +15,24 @@ function App() {
     setGameStarted(true);
   };
 
-  const handleRestart = () => {
-    setGameStarted(false);
+  const handleReset = () => {
     setPlayer1('');
     setPlayer2('');
-    setPlayerSymbol('X');
+    setPlayerSymbol('');
+    setGameStarted(false);
   };
 
   return (
-    <div style={{ textAlign: 'center', paddingTop: '40px' }}>
-      <h1>Tic Tac Toe in React.js</h1>
+    <div className="app" style={{ textAlign: 'center', paddingTop: '50px' }}>
       {gameStarted ? (
-        <GameBoard player1={player1} player2={player2} symbol={playerSymbol} onRestart={handleRestart} />
+        <GameBoard
+          player1={player1}
+          player2={player2}
+          playerSymbol={playerSymbol}
+          onReset={handleReset}
+        />
       ) : (
-        <StartScreen onStartGame={handleStartGame} />
+        <StartScreen onStart={handleStartGame} />
       )}
     </div>
   );

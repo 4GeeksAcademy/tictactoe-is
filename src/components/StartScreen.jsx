@@ -1,37 +1,37 @@
 import React, { useState } from 'react';
 
-function StartScreen({ onStartGame }) {
+function StartScreen({ onStart }) {
   const [player1, setPlayer1] = useState('');
   const [player2, setPlayer2] = useState('');
 
-  const handleChooseSymbol = (symbol) => {
-    console.log("Jugador 1:", player1);
-    console.log("Jugador 2:", player2);
-    console.log("Símbolo elegido:", symbol);
-    onStartGame(player1, player2, symbol);
+  const handleStart = (symbol) => {
+    if (player1 && player2) {
+      onStart(player1, player2, symbol);
+    } else {
+      alert("Please enter both usernames!");
+    }
   };
 
   return (
     <div>
+      <h1>Tic Tac Toe in React.js</h1>
       <h2>Pick A Weapon</h2>
-      <p>CHOOSE YOUR WEAPON</p>
-      <input
-        type="text"
-        placeholder="Jugador 1 username"
-        value={player1}
-        onChange={(e) => setPlayer1(e.target.value)}
-        style={{ margin: '5px', padding: '5px' }}
-      />
-      <input
-        type="text"
-        placeholder="Jugador 2 username"
-        value={player2}
-        onChange={(e) => setPlayer2(e.target.value)}
-        style={{ margin: '5px', padding: '5px' }}
-      />
-      <div style={{ marginTop: '10px' }}>
-        <button onClick={() => handleChooseSymbol('X')} style={{ margin: '10px', fontSize: '30px' }}>❌</button>
-        <button onClick={() => handleChooseSymbol('O')} style={{ margin: '10px', fontSize: '30px' }}>⭕</button>
+      <div style={{ background: '#333', padding: '20px', display: 'inline-block' }}>
+        <h3>CHOOSE YOUR WEAPON</h3>
+        <input
+          placeholder="Player 1 username"
+          value={player1}
+          onChange={(e) => setPlayer1(e.target.value)}
+        />
+        <input
+          placeholder="Player 2 username"
+          value={player2}
+          onChange={(e) => setPlayer2(e.target.value)}
+        />
+        <div style={{ marginTop: '20px' }}>
+          <button onClick={() => handleStart('X')}>X</button>
+          <button onClick={() => handleStart('O')}>O</button>
+        </div>
       </div>
     </div>
   );
